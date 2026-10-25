@@ -117,6 +117,7 @@ describe("ScreenCaptureKitRecorder window capture", () => {
 			"guard let frozen = settledCroppedPixelBuffer ?? lastCroppedPixelBuffer",
 		);
 		expect(recorderSource).toContain("settledCroppedPixelBuffer = recentCroppedPixelBuffer");
+		expect(recorderSource).toContain("lastCroppedPixelBuffer = frozen");
 	});
 });
 

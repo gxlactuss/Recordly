@@ -723,8 +723,11 @@ final class ScreenCaptureRecorder: NSObject, SCStreamOutput, SCStreamDelegate {
 				}
 			}
 			if isTrackedWindowHidden {
-				guard let frozen = settledCroppedPixelBuffer ?? lastCroppedPixelBuffer else { return false }
-				return adaptor.append(frozen, withPresentationTime: presentationTime)
+				guard let frozen = settledCroppedPixelBuffer ?? lastCroppedPixelBuffer,
+					  adaptor.append(frozen, withPresentationTime: presentationTime) else { return false }
+				// finishCapture repeats lastCroppedPixelBuffer as the tail frame.
+				lastCroppedPixelBuffer = frozen
+				return true
 			}
 		}
 
