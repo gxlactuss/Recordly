@@ -118,6 +118,9 @@ describe("ScreenCaptureKitRecorder window capture", () => {
 		);
 		expect(recorderSource).toContain("settledCroppedPixelBuffer = recentCroppedPixelBuffer");
 		expect(recorderSource).toContain("lastCroppedPixelBuffer = frozen");
+		expect(recorderSource).toContain(
+			"if !isTrackedWindowHidden { recentCroppedPixelBuffer = settledCroppedPixelBuffer }",
+		);
 	});
 });
 

@@ -714,6 +714,9 @@ final class ScreenCaptureRecorder: NSObject, SCStreamOutput, SCStreamDelegate {
 		// The hold lasts a second past its return to cover the restore animation.
 		if let trackedWindowId {
 			if !Self.isWindowOnScreen(trackedWindowId) {
+				// The newest kept frame may be from the hide animation, so don't let it
+				// become the held frame if the window hides again soon after returning.
+				if !isTrackedWindowHidden { recentCroppedPixelBuffer = settledCroppedPixelBuffer }
 				isTrackedWindowHidden = true
 				trackedWindowShownTime = .invalid
 			} else if isTrackedWindowHidden {
